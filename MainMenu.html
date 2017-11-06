@@ -1,0 +1,60 @@
+<html>
+<body>
+<canvas id="lose" width=1200 height=900></canvas>
+
+<script>
+	
+	var can,ctx;
+	var cW,cH;
+
+	
+	can=document.getElementById("lose");
+	ctx=can.getContext("2d");
+	
+	cW=can.width;
+	cH=can.height;
+	
+
+	
+	var background = new Image();
+	background.src = "BG.jpg";
+	var play=new Image();
+	play.src="button.jpg";
+	
+	play.onload=function()
+	{
+		console.log("img loaded");
+		ctx.drawImage(play,150,100,500,400);
+		ctx.drawImage(background,0,0,cW,cH);
+	}
+	
+	
+	
+	render();
+	function render()
+	{
+	ctx.drawImage(background,0,0,cW,cH);
+	ctx.drawImage(play,500,350,150,100);
+	requestAnimationFrame(render);
+	}
+	
+	document.addEventListener("mousedown",mouseclick,false);
+	function mouseclick(event)
+	{
+		var mx=event.clientX;
+		var my=event.clientY;
+		
+		checkcollision(mx,my);
+	}
+	
+	function checkcollision(x,y)
+	{
+		if(x>375&&x<675&&y>350&&y<550)
+		{
+			window.location.replace("Game.html");
+			console.log("clicked");
+		}
+	}
+</script>
+</body>
+</html>

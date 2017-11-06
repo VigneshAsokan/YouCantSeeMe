@@ -1,0 +1,92 @@
+<html>
+<head>
+
+<style>
+canvas{
+	border: 2px solid blue;
+	}
+	</style>
+	 <link rel="stylesheet" href="style.css">
+	
+	<script>
+		
+ var mouseX;
+ var mouseY;
+ var Tx;
+ var Ty;
+ var height = 800;
+ var width = 1000;
+ var PosX;
+ var PosY;
+ var playerX;
+ var playerY;
+ var dig = new Image();
+ dig.src = "dig.png";
+ var tre = new Image();
+ tre.src = "Treasure.png";
+ 
+ document.onmousemove=function(mouse)
+{
+	//var rect = canvas.getBoundingClientRect();
+var mouseX=mouse.clientX;
+var mouseY=mouse.clientY; 
+playerX=mouseX;
+playerY=mouseY;
+}
+
+ function rand(min,max){
+	 return Math.floor(Math.random()* (max-min)+min);
+ }
+	 function initElement() {
+        var a_canvas = document.getElementById("Mycanvas");
+		Tx = rand(1, width-1);
+	    Ty= rand(1, height-1);
+		drawT(0,0,1200,900,"green");
+	    drawT(Tx,Ty,20,20,"green");
+        // Must be a reference to a function name, not a function call.
+        a_canvas.onclick = draw1;
+      };
+	  function draw1(){
+		  draw(playerX,playerY,"pink");
+		  var Px=Tx-playerX;
+		  var Py=Ty-playerY;
+		  alert(""+Px+ "...." +Py+"");
+	  }
+	function drawT(PosX,PosY,sizeX,sizeY,color){
+		 var a_canvas = document.getElementById("Mycanvas");
+	var ctx = a_canvas.getContext("2d");
+	ctx.fillStyle = color;	
+	ctx.fillRect(PosX-15,PosY-15,sizeX,sizeY);	
+	ctx.fill();	
+	ctx.lineWidth = 2;
+	ctx.stroke();
+	ctx.fillStyle = "black";
+}
+function draw(PosX,PosY,color){
+		 var a_canvas = document.getElementById("Mycanvas");
+	var ctx = a_canvas.getContext("2d");
+	ctx.fillStyle = color;	
+	if(PosX>Tx-20&&PosX<Tx+20){
+		if(PosY>Ty-20&&PosY<Ty+20){
+		ctx.drawImage(tre,PosX-15,PosY-15,20,20);
+		alert("Found");
+		//drawT(Tx,Ty,"green");
+		}
+	
+	}else{
+	//ctx.fillRect(PosX-15,PosY-15,20,20);	
+	//ctx.fill();
+	ctx.drawImage(dig,PosX-15,PosY-15,20,20);
+	ctx.lineWidth = 2;
+	ctx.stroke();
+	ctx.fillStyle = "black";}
+}
+		</script>
+		</head>
+<body onload="initElement()" >
+
+<canvas  id="Mycanvas"  width="1000" height="800">
+
+	</canvas>
+</body>
+</html>
